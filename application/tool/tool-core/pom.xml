@@ -19,6 +19,7 @@
     </modules>
 
     <properties>
+        <aspectj-maven-plugin.version>1.7</aspectj-maven-plugin.version>
         <spring.version>4.3.7.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
         <aspectjrt.version>1.8.9</aspectjrt.version>
@@ -60,7 +61,7 @@
         <jackson-jaxrs.version>1.9.13</jackson-jaxrs.version>
         <jaxb-api.version>2.2.12</jaxb-api.version>
         <jstl.version>1.2</jstl.version>
-
+         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -431,17 +432,44 @@
     <build>
         <finalName>tool-core</finalName>
         <plugins>
-            <plugin>
+           <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${aspectj-maven-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <outxml>true</outxml>
-                    <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>org.springframework</groupId>
-                            <artifactId>spring-aspects</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
+                    <complianceLevel>1.8</complianceLevel>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
