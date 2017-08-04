@@ -9,10 +9,26 @@
     <version>1.0-SNAPSHOT</version>
     <name>tool-base Parent</name>
     <packaging>pom</packaging>
+    <properties>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+    </properties>
 
     <modules>
         <module>base-utils</module>
         <module>business</module>
         <module>base-exception</module>
     </modules>
+         <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
