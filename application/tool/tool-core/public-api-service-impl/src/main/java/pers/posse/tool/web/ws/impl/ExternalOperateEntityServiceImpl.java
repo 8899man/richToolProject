@@ -2,8 +2,8 @@ package pers.posse.tool.web.ws.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pers.posse.tool.ToolException;
-import pers.posse.tool.service.IUserService;
-import pers.posse.tool.service.dto.UserDto;
+import pers.posse.tool.service.IToolUserService;
+import pers.posse.tool.service.dto.ToolUserDto;
 import pers.posse.tool.web.ws.ExternalOperateEntityService;
 import pers.posse.tool.web.ws.enums.OperationType;
 import pers.posse.tool.web.ws.response.ResponseBuilder;
@@ -21,7 +21,7 @@ import java.util.concurrent.Semaphore;
 public class ExternalOperateEntityServiceImpl implements ExternalOperateEntityService {
 
     @Autowired
-    private IUserService userService;
+    private IToolUserService userService;
 
     @Override
     public ExternalOperateEntityResponse service(ExternalOperateEntityRequest request) {
@@ -29,9 +29,9 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
 
         ExternalOperateEntityResponse response = new ExternalOperateEntityResponse();
 
-        UserDto userDto;
+        ToolUserDto toolUserDto;
         try {
-            userDto = userService.authUser(request.getApiName(), request.getApiPassword());
+            toolUserDto = userService.authUser(request.getApiName(), request.getApiPassword());
         } catch (ToolException te) {
             ResponseBuilder.addResult(response, te.getToolCode());
             return response;
@@ -88,7 +88,7 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
                 userService.createUser(attribute);
                 break;
             case RETRIEVE:
-                UserDto user = userService.retrieve(attribute.getId());
+                ToolUserDto user = userService.retrieve(attribute.getId());
                 ResponseBuilder.builderRetrieveEntityResult(response, user);
                 break;
             case UPDATE:

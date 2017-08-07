@@ -2,8 +2,8 @@ package pers.posse.tool.service.impl.persistence.finder;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Repository;
-import pers.posse.tool.service.dto.UserDto;
-import pers.posse.tool.service.impl.domain.User;
+import pers.posse.tool.service.dto.ToolUserDto;
+import pers.posse.tool.service.impl.domain.ToolUser;
 import pers.posse.tool.service.impl.parser.UserDtoParser;
 import pers.posse.tool.service.persistence.finder.IUserFinder;
 
@@ -24,30 +24,30 @@ public class UserFinderJPA implements IUserFinder {
     private EntityManager emRead;
 
     @Override
-    public UserDto findUserByUserNameAndPassword(String apiName, String apiPassword) {
+    public ToolUserDto findUserByUserNameAndPassword(String apiName, String apiPassword) {
         CriteriaBuilder builder = emRead.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
+        CriteriaQuery<ToolUser> query = builder.createQuery(ToolUser.class);
 
-        Root<User> root = query.from(User.class);
+        Root<ToolUser> root = query.from(ToolUser.class);
         query.where(builder.and(builder.equal(root.get("apiName"), apiName)),
                 builder.equal(root.get("apiPassword"), apiPassword));
-        List<User> users = emRead.createQuery(query).getResultList();
-        return CollectionUtils.isEmpty(users) ? null : UserDtoParser.fromDomain(users.get(0));
+        List<ToolUser> toolUsers = emRead.createQuery(query).getResultList();
+        return CollectionUtils.isEmpty(toolUsers) ? null : UserDtoParser.fromDomain(toolUsers.get(0));
     }
 
-    private User findUser(Long id) {
+    private ToolUser findUser(Long id) {
         CriteriaBuilder builder = emRead.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
+        CriteriaQuery<ToolUser> query = builder.createQuery(ToolUser.class);
 
-        Root<User> root = query.from(User.class);
+        Root<ToolUser> root = query.from(ToolUser.class);
         query.where(builder.and(builder.equal(root.get("id"), id)));
-        List<User> users = emRead.createQuery(query).getResultList();
-        return CollectionUtils.isEmpty(users) ? null : users.get(0);
+        List<ToolUser> toolUsers = emRead.createQuery(query).getResultList();
+        return CollectionUtils.isEmpty(toolUsers) ? null : toolUsers.get(0);
     }
 
     @Override
-    public UserDto findUserDto(Long id) {
-        User user = findUser(id);
-        return user == null ? null : UserDtoParser.fromDomain(user);
+    public ToolUserDto findUserDto(Long id) {
+        ToolUser toolUser = findUser(id);
+        return toolUser == null ? null : UserDtoParser.fromDomain(toolUser);
     }
 }

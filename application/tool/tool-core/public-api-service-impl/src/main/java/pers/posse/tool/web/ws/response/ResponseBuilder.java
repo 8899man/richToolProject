@@ -1,6 +1,6 @@
 package pers.posse.tool.web.ws.response;
 
-import pers.posse.tool.service.dto.UserDto;
+import pers.posse.tool.service.dto.ToolUserDto;
 import pers.posse.tool.web.ws.xml.DomainAttribute;
 import pers.posse.tool.web.ws.xml.ExternalOperateEntityResponse;
 
@@ -12,7 +12,7 @@ public class ResponseBuilder {
         response.setMsg(msg);
     }
 
-    public static void builderRetrieveEntityResult(ExternalOperateEntityResponse response, UserDto user) {
+    public static void builderRetrieveEntityResult(ExternalOperateEntityResponse response, ToolUserDto user) {
         if (user == null) {
             return;
         }

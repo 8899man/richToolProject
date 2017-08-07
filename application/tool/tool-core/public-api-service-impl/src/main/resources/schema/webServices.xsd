@@ -19,7 +19,7 @@
         <xs:attribute name="apiName" use="required">
             <xs:annotation>
                 <xs:documentation xml:lang="en">
-                    Login in apiName from table user.
+                    Login in apiName from table toolUser.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -67,7 +67,7 @@
                         <xs:enumeration value="USER">
                             <xs:annotation>
                                 <xs:documentation xml:lang="en">
-                                    user.
+                                    toolUser.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
@@ -135,17 +135,24 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="address" maxOccurs="1" minOccurs="0">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:maxLength value="255"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
             <xs:element name="mobile" maxOccurs="1" minOccurs="0">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="idNum" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="18" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="address" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>

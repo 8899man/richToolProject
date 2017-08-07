@@ -14,7 +14,7 @@ public class EncodingLoggingInInterceptor extends LoggingInInterceptor {
         String encoding = System.getProperty("file.encoding");
         encoding = StringUtils.isEmpty(encoding) ? "UTF-8" : encoding;
         // TODO log
-        System.out.println("EncodingLoggingInInterceptor : encoding = " + encoding);
+        System.out.println("externalOperationEntityService interceptor encodingLoggingInInterceptor : encoding = " + encoding);
         message.put(Message.ENCODING, encoding);
         super.handleMessage(message);
     }

@@ -24,14 +24,14 @@
             <!-- 
 			<property name="hibernate.cache.use_second_level_cache" value="true"/>
 			<property name="hibernate.cache.provider_class" value ="net.sf.ehcache.hibernate.EhCacheProvider"/>
-			http://ehcache.org/documentation/2.4/user-guide/hibernate#Downloading-and-Installing-Ehcache
+			http://ehcache.org/documentation/2.4/toolUser-guide/hibernate#Downloading-and-Installing-Ehcache
              -->
             
             <!-- Uncomment the following two properties for JBoss only -->
             <!-- property name="hibernate.validator.apply_to_ddl" value="false" /-->
             <!-- property name="hibernate.validator.autoregister_listeners" value="false" /-->
         </properties>
-        <class>pers.posse.tool.service.impl.domain.User</class>
+        <class>pers.posse.tool.service.impl.domain.ToolUser</class>
         <class>pers.posse.tool.service.impl.domain.Student</class>
         <class>pers.posse.tool.service.impl.domain.Teacher</class>
         <class>pers.posse.tool.service.impl.domain.Course</class>

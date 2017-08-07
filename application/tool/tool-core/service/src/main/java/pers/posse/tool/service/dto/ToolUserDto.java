@@ -5,7 +5,7 @@ import domain.enums.Gender;
 /**
  * Created by posse on 17-7-25.
  */
-public class UserDto {
+public class ToolUserDto {
 
     private Long id;
 

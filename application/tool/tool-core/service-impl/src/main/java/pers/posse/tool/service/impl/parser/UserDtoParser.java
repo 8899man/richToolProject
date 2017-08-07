@@ -1,7 +1,7 @@
 package pers.posse.tool.service.impl.parser;
 
-import pers.posse.tool.service.dto.UserDto;
-import pers.posse.tool.service.impl.domain.User;
+import pers.posse.tool.service.dto.ToolUserDto;
+import pers.posse.tool.service.impl.domain.ToolUser;
 
 /**
  * Created by posse on 17-7-31.
@@ -10,20 +10,20 @@ public final class UserDtoParser {
     public UserDtoParser() {
     }
 
-    public static UserDto fromDomain(User user){
-        if (user == null) {
+    public static ToolUserDto fromDomain(ToolUser toolUser){
+        if (toolUser == null) {
             return null;
         }
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setAge(user.getAge());
-        userDto.setGender(user.getGender());
-        userDto.setMobile(user.getMobile());
-        userDto.setAddress(user.getAddress());
-        userDto.setIdNum(user.getIdNum());
-        userDto.setApiName(user.getApiName());
-        userDto.setApiPassword(user.getApiPassword());
-        return userDto;
+        ToolUserDto toolUserDto = new ToolUserDto();
+        toolUserDto.setId(toolUser.getId());
+        toolUserDto.setName(toolUser.getName());
+        toolUserDto.setAge(toolUser.getAge());
+        toolUserDto.setGender(toolUser.getGender());
+        toolUserDto.setMobile(toolUser.getMobile());
+        toolUserDto.setAddress(toolUser.getAddress());
+        toolUserDto.setIdNum(toolUser.getIdNum());
+        toolUserDto.setApiName(toolUser.getApiName());
+        toolUserDto.setApiPassword(toolUser.getApiPassword());
+        return toolUserDto;
     }
 }
