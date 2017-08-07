@@ -2,8 +2,10 @@ package pers.posse.tool.service.impl.persistence;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-import pers.posse.tool.service.dto.UserDto;
-import pers.posse.tool.service.impl.domain.User;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import pers.posse.tool.service.dto.ToolUserDto;
+import pers.posse.tool.service.impl.domain.ToolUser;
 import pers.posse.tool.service.persistence.IUserRepository;
 
 import javax.persistence.EntityManager;
@@ -21,35 +23,37 @@ public class UserRepositoryJPA implements IUserRepository {
     private EntityManager emWrite;
 
     @Override
-    public Long createUser(UserDto userDto) {
-        User user = new User(null, userDto.getName(), userDto.getAge(), userDto.getGender(), userDto.getIdNum(),
-                userDto.getAddress(), userDto.getMobile(), userDto.getApiName(), userDto.getApiPassword());
-        emWrite.persist(user);
-        return user.getId();
+    public Long createUser(ToolUserDto toolUserDto) {
+        ToolUser toolUser = new ToolUser(null, toolUserDto.getName(), toolUserDto.getAge(), toolUserDto.getGender(), toolUserDto
+                .getIdNum(),
+                toolUserDto.getAddress(), toolUserDto.getMobile(), toolUserDto.getApiName(), toolUserDto.getApiPassword());
+        emWrite.persist(toolUser);
+        return toolUser.getId();
     }
 
     @Override
-    public void updateUser(UserDto userDto) {
-        User user = emWrite.find(User.class, userDto.getId());
-        updateUser(user, userDto);
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void updateUser(ToolUserDto toolUserDto) {
+        ToolUser toolUser = emWrite.find(ToolUser.class, toolUserDto.getId());
+        updateUser(toolUser, toolUserDto);
     }
 
-    private void updateUser(User user, UserDto userDto) {
-        if (userDto == null) {
+    private void updateUser(ToolUser toolUser, ToolUserDto toolUserDto) {
+        if (toolUserDto == null) {
             return;
         }
-        user.setName(StringUtils.isBlank(userDto.getName()) ? null : userDto.getName());
-        user.setAge(userDto.getAge() == null ? null : userDto.getAge());
-        user.setGender(userDto.getGender() == null ? null : userDto.getGender());
-        user.setMobile(StringUtils.isBlank(userDto.getMobile()) ? null : userDto.getMobile());
-        user.setAddress(StringUtils.isBlank(userDto.getAddress()) ? null : userDto.getAddress());
-        user.setIdNum(StringUtils.isBlank(userDto.getIdNum()) ? null : userDto.getIdNum());
-        user.setApiName(StringUtils.isBlank(userDto.getApiName()) ? null : userDto.getApiName());
-        user.setApiPassword(StringUtils.isBlank(userDto.getApiPassword()) ? null : userDto.getApiPassword());
+        toolUser.setName(StringUtils.isBlank(toolUserDto.getName()) ? null : toolUserDto.getName());
+        toolUser.setAge(toolUserDto.getAge() == null ? null : toolUserDto.getAge());
+        toolUser.setGender(toolUserDto.getGender() == null ? null : toolUserDto.getGender());
+        toolUser.setMobile(StringUtils.isBlank(toolUserDto.getMobile()) ? null : toolUserDto.getMobile());
+        toolUser.setAddress(StringUtils.isBlank(toolUserDto.getAddress()) ? null : toolUserDto.getAddress());
+        toolUser.setIdNum(StringUtils.isBlank(toolUserDto.getIdNum()) ? null : toolUserDto.getIdNum());
+        toolUser.setApiName(StringUtils.isBlank(toolUserDto.getApiName()) ? null : toolUserDto.getApiName());
+        toolUser.setApiPassword(StringUtils.isBlank(toolUserDto.getApiPassword()) ? null : toolUserDto.getApiPassword());
     }
 
     @Override
     public void deleteUser(Long id) {
-        emWrite.remove(this.emWrite.find(User.class, id));
+        emWrite.remove(this.emWrite.find(ToolUser.class, id));
     }
 }

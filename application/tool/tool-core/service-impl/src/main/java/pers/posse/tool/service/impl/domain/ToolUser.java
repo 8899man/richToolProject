@@ -7,18 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
  * Created by posse on 17-7-20.
  */
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "tool_user")
+//@SequenceGenerator(name = "seq_tool_user", sequenceName = "seq_tool_user")
+public class ToolUser {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tool_user")
     private Long id;
 
     @Column(name = "name")
@@ -45,10 +48,10 @@ public class User {
     @Column(name = "api_password")
     private String apiPassword;
 
-    public User() {
+    public ToolUser() {
     }
 
-    public User(Long id, String name, Integer age, Gender gender, String idNum, String address, String mobile,
+    public ToolUser(Long id, String name, Integer age, Gender gender, String idNum, String address, String mobile,
             String apiName, String apiPassword) {
         this.id = id;
         this.name = name;

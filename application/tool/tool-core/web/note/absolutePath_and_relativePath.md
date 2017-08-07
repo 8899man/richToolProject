@@ -10,9 +10,9 @@
 * **关于JSP/Servlet**
     - 服务器的地址
     服务器端的相对地址指的是相对于你的web应用的地址，这个地址是在服务器端解析的（不同于html和javascript中的相对地址，他们是由客户端浏览器解析的）也就是说这时候在jsp和servlet中的相对地址应该是相对于你的web应用，即相对于http: //192.168.0.1/webapp/的。
-    forward：servlet中的request.getRequestDispatcher(address);这个address是在服务器端解析的，所以，你要forward到a.jsp应该这么写：request.getRequestDispatcher(“/user/a.jsp”)这个/ 相对于当前的web应用webapp，其绝对地址就是：http://192.168.0.1/webapp/user/a.jsp。 sendRedirect：在jsp中<%response.sendRedirect("/rtccp/user/a.jsp");%>
+    forward：servlet中的request.getRequestDispatcher(address);这个address是在服务器端解析的，所以，你要forward到a.jsp应该这么写：request.getRequestDispatcher(“/toolUser/a.jsp”)这个/ 相对于当前的web应用webapp，其绝对地址就是：http://192.168.0.1/webapp/toolUser/a.jsp。 sendRedirect：在jsp中<%response.sendRedirect("/rtccp/toolUser/a.jsp");%>
     - 客户端地址
-    所有的html页面中的相对地址都是相对于服务器根目录(http://192.168.0.1/)的，而不是(跟目录下的该Web应用的目录) http://192.168.0.1/webapp/的。 Html中的form表单的action属性的地址应该是相对于服务器根目录(http://192.168.0.1/)的，所以，如果提交到a.jsp 为：action＝"/webapp/user/a.jsp"或action="<%=request.getContextPath()% >"/user/a.jsp；提交到servlet为actiom＝"/webapp/handleservlet" Javascript也是在客户端解析的，所以其相对路径和form表单一样。
+    所有的html页面中的相对地址都是相对于服务器根目录(http://192.168.0.1/)的，而不是(跟目录下的该Web应用的目录) http://192.168.0.1/webapp/的。 Html中的form表单的action属性的地址应该是相对于服务器根目录(http://192.168.0.1/)的，所以，如果提交到a.jsp 为：action＝"/webapp/toolUser/a.jsp"或action="<%=request.getContextPath()% >"/toolUser/a.jsp；提交到servlet为actiom＝"/webapp/handleservlet" Javascript也是在客户端解析的，所以其相对路径和form表单一样。
 
       因此，一般情况下，在JSP/HTML页面等引用的CSS,Javascript.Action等属性前面最好都加上
     <%=request.getContextPath()%>,以确保所引用的文件都属于Web应用中的目录。另外，应该尽量避免使用类似".","./","../../"等类似的相对该文件位置的相对路径，这样当文件移动时，很容易出问题。
@@ -34,7 +34,7 @@
 * **java 的Class中获得相对路径，绝对路径的方法**
     - 单独的Java类中获得绝对路径
     根据java.io.File的Doc文挡，可知:
-    默认情况下new File("/")代表的目录为：System.getProperty("user.dir")。
+    默认情况下new File("/")代表的目录为：System.getProperty("toolUser.dir")。
     ``` java
         package org.cheng.file;
 
@@ -51,7 +51,7 @@
                 System.out.println(FileTest.class.getResource("/"));
                 //Class文件所在路径
                 System.out.println(new File("/").getAbsolutePath());
-                System.out.println(System.getProperty("user.dir"));
+                System.out.println(System.getProperty("toolUser.dir"));
             }
         }
     ```
@@ -70,10 +70,10 @@
             这样使用：new FileInputStream("./yourconfig/yourconf.properties");
 
         - Tomcat
-        在类中输出System.getProperty("user.dir");显示的是%Tomcat_Home%/bin
+        在类中输出System.getProperty("toolUser.dir");显示的是%Tomcat_Home%/bin
 
         - Resin
-        在类中输出System.getProperty("user.dir");显示的是%Tomcat_Home%/bin
+        在类中输出System.getProperty("toolUser.dir");显示的是%Tomcat_Home%/bin
 
         - 如何读相对路径哪
         在Java文件中getResource或getResourceAsStream均可
