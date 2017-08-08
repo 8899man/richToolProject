@@ -1,8 +1,8 @@
 package pers.posse.tool.service;
 
 import pers.posse.tool.service.dto.ToolUserDto;
-import pers.posse.tool.web.ws.xml.DomainAttribute;
-import pers.posse.tool.ws.ExternalException;
+import per.posse.tool.ws.xml.DomainAttribute;
+import per.posse.tool.ws.ExternalException;
 
 /**
  * Created by posse on 17-7-20.

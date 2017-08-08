@@ -101,11 +101,13 @@ public class HibernateSessionInterceptor implements Interceptor {
 
     @Override
     public void beforeTransactionCompletion(Transaction transaction) {
+        System.out.println(transaction.getStatus());
         System.out.println("before transaction completion print by hibernateSessionInterceptor");
     }
 
     @Override
     public void afterTransactionCompletion(Transaction transaction) {
+        System.out.println(transaction.getStatus());
         System.out.println("after transaction completion print by hibernateSessionInterceptor");
     }
 

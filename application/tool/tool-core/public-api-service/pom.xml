@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>core-public-api-service</artifactId>
-    <name>tool-core  public-api-service</name>
+    <name>tool-core public-api-service</name>
 
     <dependencies>
         <dependency>
