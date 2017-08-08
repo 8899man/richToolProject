@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         version="3.0"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         xmlns:context="http://www.springframework.org/schema/context">
+    <!--<small-icon>../../mp/icon/honeybee.jpg</small-icon>-->
+    <!--<large-icon>../../mp/icon/cat.jpg</large-icon>-->
+
+    <display-name>richTool</display-name>
+    <description>richTool application</description>
+    <!--
+        初始化参数, 上下文参数：声明应用范围内的初始化参数
+        在servlet里面可以通过 getServletContext().getInitParameter(“context/param”)得到
+        applicationContext.xml 想要被容器ContextLoaderListener 加载
+        第一种：直接将之放到/WEB-INF下,默认加载这个文件
+        第二种：将之放到classpath下，但是此时要在web.xml中加入<context-param>，用它来指明你的applicationContext.xml的位置以供web容器来加载
+
+        解释classes含义：
+        1.存放各种资源配置文件 eg.init.properties log4j.properties struts.xml
+        2.存放模板文件 eg.actionerror.ftl
+        3.存放class文件 对应的是项目开发时的src目录编译文件
+            总结：这是一个定位资源的入口
+        "**/" 表示的是任意目录；
+        "**/applicationContext-*.xml"  表示任意目录下的以"applicationContext-"开头的XML文件。
+        程序部署后,src目录下的配置文件会和class文件一样，自动copy到应用的 WEB-INF/classes目录下
+        classpath:与classpath*:的区别在于，
+        前者只会从第一个classpath中加载,后者会从所有的classpath中加载
+    -->
+    <context:property-placeholder location="classpath*:META-INF/application.properties"/>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:META-INF/config/spring/applicationContext.xml</param-value>
+    </context-param>
+
+    <!--
+        1、此监听器主要用于解决java.beans.Introspector导致的内存泄漏的问题
+        2、此监听器应该配置在web.xml中与Spring相关监听器中的第一个位置(也要在ContextLoaderListener的前面)
+        3、JDK中的java.beans.Introspector类的用途是发现Java类是否符合JavaBean规范如果有的框架或程序用到了Introspector类,那么就会启用一个系统级别的缓存,此缓存会
+            存放一些曾加载并分析过的JavaBean的引用。当Web服务器关闭时,由于此缓存中存放着这些JavaBean的引用,所以垃圾回收器无法回收Web容器中的JavaBean对象,最后导致
+            内存变大。而org.springframework.web.util.IntrospectorCleanupListener就是专门用来处理Introspector内存泄漏问题的辅助类。IntrospectorCleanupListener会在
+            Web服务器停止时清理Introspector缓存,使那些Javabean能被垃圾回收器正确回收。Spring自身不会出现这种问题，因为Spring在加载并分析完一个类之后会马上刷新
+            JavaBeans Introspector缓存,这就保证Spring中不会出现这种内存泄漏的问题。但有些程序和框架在使用了JavaBeans Introspector之后,没有进行清理工作(如Quartz,Struts),最后导致内存泄漏
+    -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <!-- Creates the Spring Container, load applicationContext -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 拦截器, 可以自定义 实现javaxs.servlet.Filter -->
+    <!--<filter>-->
+        <!--<filter-name>CharacterEncodingFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>UTF-8</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>forceEncoding</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CharacterEncodingFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--如果某个会话在一定时间内未被访问，服务器可以抛弃它以节省内存。可通过使用HttpSession的
+32          setMaxInactiveInterval方法明确设置单个会话对象的超时值，或者可利用session-config元素制定缺省超时值-->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!--指示服务器在收到引用一个目录名而不是文件名的URL时，使用哪个文件-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+
+    <!--在返回特定HTTP状态代码时，或者特定类型的异常被抛出时，能够制定将要显示的页面
+        配置了当系统发生404错误时，跳转到错误处理页面NotFound.jsp
+    -->
+    <!--<error-page>-->
+        <!--<error-code>404</error-code>-->
+        <!--<location>/notFound.html</location>-->
+    <!--</error-page>-->
+    <!--配置了当系统发生java.lang.NullException（即空指针异常）时，跳转到错误处理页面error.jsp-->
+    <!--<error-page>-->
+        <!--<exception-type>java.lang.NullException</exception-type>-->
+        <!--<location>/error.html</location>-->
+    <!--</error-page>-->
+
+    <!--制定应该保护的URL。它与login-config元素联合使用-->
+    <!--<security-constraint></security-constraint>-->
+
+    <!--指定服务器应该怎样给试图访问受保护页面的用户授权。它与sercurity-constraint元素联合使用-->
+    <!--<login-config></login-config>-->
+
+    <!--给出安全角色的一个列表，这些角色将出现在servlet元素内的security-role-ref元素的role-name子元素中。
+    分别地声明角色可使高级IDE处理安全信息更为容易-->
+    <!--<security-role></security-role>-->
+
+    <servlet>
+        <display-name>CXFService</display-name>
+        <servlet-name>CXFService</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <description>Apache CXF Endpoint</description>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFService</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+</web-app>

@@ -4,12 +4,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import per.posse.tool.ws.ExternalException;
+import per.posse.tool.ws.xml.DomainAttribute;
 import pers.posse.tool.service.IToolUserService;
 import pers.posse.tool.service.dto.ToolUserDto;
-import pers.posse.tool.service.persistence.IUserRepository;
-import pers.posse.tool.service.persistence.finder.IUserFinder;
-import pers.posse.tool.web.ws.xml.DomainAttribute;
-import pers.posse.tool.ws.ExternalException;
+import pers.posse.tool.service.persistence.IToolUserRepository;
 
 /**
  * Created by posse on 17-7-25.
@@ -18,17 +17,19 @@ import pers.posse.tool.ws.ExternalException;
 public class ToolUserService implements IToolUserService {
 
     @Autowired
-    private IUserFinder userFinder;
-
-    @Autowired
-    private IUserRepository userRepository;
+    private IToolUserRepository toolUserRepository;
 
     @Override
     public ToolUserDto authUser(String apiName, String apiPassword) throws ExternalException {
         if (StringUtils.isBlank(apiName) || StringUtils.isBlank(apiPassword)) {
-            throw new ExternalException("auth failed");
+            throw new ExternalException("auth info missing.");
         }
-        return userFinder.findUserByUserNameAndPassword(apiName, apiPassword);
+
+        ToolUserDto userDto = toolUserRepository.findUserByUserNameAndPassword(apiName, apiPassword);
+        if (userDto == null) {
+            throw new ExternalException("user not exists.");
+        }
+        return userDto;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ToolUserService implements IToolUserService {
         toolUserDto.setAddress(attribute.getAddress());
         toolUserDto.setApiName(attribute.getApiName());
         toolUserDto.setApiPassword(attribute.getApiPassword());
-        userRepository.createUser(toolUserDto);
+        toolUserRepository.createUser(toolUserDto);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ToolUserService implements IToolUserService {
         if (id == null) {
             throw new ExternalException("id can not null");
         }
-        return userFinder.findUserDto(id);
+        return toolUserRepository.findUserDto(id);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class ToolUserService implements IToolUserService {
         toolUserDto.setAddress(attribute.getAddress());
         toolUserDto.setApiName(attribute.getApiName());
         toolUserDto.setApiPassword(attribute.getApiPassword());
-        userRepository.updateUser(toolUserDto);
+        toolUserRepository.updateUser(toolUserDto);
     }
 
     @Override
@@ -81,6 +82,6 @@ public class ToolUserService implements IToolUserService {
         if (id == null) {
             throw new ExternalException("id can not null");
         }
-        userRepository.deleteUser(id);
+        toolUserRepository.deleteUser(id);
     }
 }
