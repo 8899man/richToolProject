@@ -1,17 +1,11 @@
-package per.posse.tool.ws.xml;
+package per.posse.tool.service.dto;
 
 import per.posse.tool.enums.domain.Gender;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by posse on 17-7-25.
  */
-@XmlRootElement(name = "attribute")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class DomainAttribute {
+public class ToolUserDto {
 
     private Long id;
 

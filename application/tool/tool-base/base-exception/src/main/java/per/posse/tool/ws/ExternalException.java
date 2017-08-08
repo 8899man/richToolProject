@@ -1,7 +1,7 @@
 package per.posse.tool.ws;
 
-import pers.posse.tool.ExceptionContext;
-import pers.posse.tool.ToolException;
+import per.posse.tool.ExceptionContext;
+import per.posse.tool.ToolException;
 
 /**
  * Created by posse on 17-7-31.

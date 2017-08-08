@@ -1,6 +1,6 @@
 package per.posse.tool.ws.response;
 
-import pers.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.service.dto.ToolUserDto;
 import per.posse.tool.ws.xml.DomainAttribute;
 import per.posse.tool.ws.xml.ExternalOperateEntityResponse;
 

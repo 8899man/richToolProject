@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd ">
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="autoStartup" value="true"/>
+        <property name="waitForJobsToCompleteOnShutdown" value="true"/>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+
+        <property name="jobDetails">
+            <list>
+                <ref bean="insertToolUserJobBean"/>
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="insertToolUserTrigger"/>
+            </list>
+        </property>
+
+    </bean>
+
+    <bean id="insertToolUserJobBean" class="per.posse.tool.utils.quartz.ToolJobDetailFactoryBean">
+        <property name="name" value="insertToolUserJob"></property>
+        <property name="group" value="tool-core-job"></property>
+        <property name="jobClass" value="per.posse.tool.service.impl.quartz.InsertToolUserJob"/>
+        <!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务  -->
+        <property name="durability" value="true"/>
+        <!-- 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 -->
+        <property name="applicationContextJobDataKey" value="applicationContext"/>
+    </bean>
+
+    <bean id="insertToolUserTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="insertToolUserTrigger" />
+        <property name="jobDetail" ref="insertToolUserJobBean"/>
+        <property name="cronExpression" value="${insert.tool.user.trigger.interval}"/>
+        <property name="group" value="tool-core-trigger"></property>
+    </bean>
+
+</beans>

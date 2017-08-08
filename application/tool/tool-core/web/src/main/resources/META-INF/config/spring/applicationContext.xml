@@ -11,9 +11,10 @@
             http://www.springframework.org/schema/context/spring-context.xsd" >
 
     <import resource="classpath*:META-INF/config/cxf/webService.xml" />
+    <import resource="classpath*:META-INF/config/spring/applicationContext_quartz.xml" />
 
     <context:property-placeholder location="classpath*:META-INF/application.properties"/>
-    <context:component-scan base-package="pers.posse.tool.service.impl" />
+    <context:component-scan base-package="per.posse.tool.service.impl" />
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName"  value="${database.driver.className}" />
@@ -50,7 +51,7 @@
         <property name="jpaPropertyMap">
             <map>
                 <entry key="hibernate.ejb.interceptor.session_scoped">
-                    <value>pers.posse.tool.interceptor.HibernateSessionInterceptor</value>
+                    <value>per.posse.tool.interceptor.HibernateSessionInterceptor</value>
                 </entry>
             </map>
         </property>
