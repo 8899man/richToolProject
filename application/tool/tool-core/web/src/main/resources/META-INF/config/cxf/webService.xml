@@ -24,7 +24,7 @@
     </bean>
 
     <util:list id="theSchemas">
-        <value>classpath*:/schema/webService.xsd</value>
+        <value>classpath:META-INF/schema/webService.xsd</value>
     </util:list>
 
     <jaxrs:server id="externalInsertEntityService" address="/">

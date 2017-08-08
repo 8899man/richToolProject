@@ -33,7 +33,7 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
         try {
             toolUserDto = userService.authUser(request.getApiName(), request.getApiPassword());
         } catch (ToolException te) {
-            ResponseBuilder.addResult(response, te.getToolCode());
+            ResponseBuilder.addResult(response, te.getRawMessage());
             return response;
         }
 
@@ -45,13 +45,13 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
                 return response;
             } catch (Exception e) {
                 e.printStackTrace();
-                ResponseBuilder.addResult(response, new ExternalException("server exception.").getMessage());
+                ResponseBuilder.addResult(response, new ExternalException("server exception.").getRawMessage());
                 return response;
             } finally {
                 semp.release();
             }
         } catch (InterruptedException ite) {
-            ResponseBuilder.addResult(response, new ExternalException("concurrent exception.").getMessage());
+            ResponseBuilder.addResult(response, new ExternalException("concurrent exception.").getRawMessage());
             return response;
         }
     }
@@ -88,7 +88,7 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
             }
         } catch (ExternalException ee) {
             ee.printStackTrace();
-            ResponseBuilder.addResult(response, ee.getMessage());
+            ResponseBuilder.addResult(response, ee.getRawMessage());
             return;
         }
         return;

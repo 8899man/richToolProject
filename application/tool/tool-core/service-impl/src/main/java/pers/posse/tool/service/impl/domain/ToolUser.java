@@ -1,13 +1,15 @@
 package pers.posse.tool.service.impl.domain;
 
 import domain.enums.Gender;
+import pers.posse.tool.service.impl.persistence.ToolUserRepositoryJPA;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,13 +17,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tool_user")
-//@SequenceGenerator(name = "seq_tool_user", sequenceName = "seq_tool_user")
+@NamedQueries({
+    @NamedQuery(name = ToolUserRepositoryJPA.UPDATE_TOOL_USER, query = "update ToolUser t set "
+            + "t.name = :name, t.age = :age, t.gender = :gender, t.idNum = :idNum, t.address = :address, t.mobile = :mobile,"
+            + "t.apiName = :apiName, t.apiPassword = :apiPassword where t.id = :id")
+})
 public class ToolUser {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy= GenerationType.AUTO)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tool_user")
     private Long id;
 
     @Column(name = "name")

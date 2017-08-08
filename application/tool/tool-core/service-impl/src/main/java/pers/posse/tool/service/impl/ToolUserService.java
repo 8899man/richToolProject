@@ -20,6 +20,7 @@ public class ToolUserService implements IToolUserService {
     private IToolUserRepository toolUserRepository;
 
     @Override
+    @Transactional
     public ToolUserDto authUser(String apiName, String apiPassword) throws ExternalException {
         if (StringUtils.isBlank(apiName) || StringUtils.isBlank(apiPassword)) {
             throw new ExternalException("auth info missing.");

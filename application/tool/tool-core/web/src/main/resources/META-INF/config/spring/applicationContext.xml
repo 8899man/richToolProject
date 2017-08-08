@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-	         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-	         http://www.springframework.org/schema/context
-	         http://www.springframework.org/schema/context/spring-context-4.0.xsd
-             http://www.springframework.org/schema/tx
-	         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd" >
 
     <import resource="classpath*:META-INF/config/cxf/webService.xml" />
-    <context:property-placeholder location="classpath*:META-INF/*.properties"/>
+
+    <context:property-placeholder location="classpath*:META-INF/application.properties"/>
     <context:component-scan base-package="pers.posse.tool.service.impl" />
 
-    <bean id="schoolDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName"  value="${database.driver.className}" />
-        <property name="url" value="${database.school.read.url}" />
-        <property name="username" value="${database.school.write.username}" />
-        <property name="password" value="${database.school.write.password}" />
+        <property name="url" value="${database.school.url}" />
+        <property name="username" value="${database.school.username}" />
+        <property name="password" value="${database.school.password}" />
     </bean>
 
     <bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
@@ -29,7 +30,7 @@
         </property>
         <property name="dataSources">
             <map>
-                <entry key="dataSource" value-ref="schoolDataSource"/>
+                <entry key="dataSource" value-ref="dataSource"/>
             </map>
         </property>
     </bean>
@@ -37,7 +38,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="persistenceUnit"/>
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
-        <property name="dataSource" ref="schoolDataSource" />
+        <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter">
             <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="database" value="MYSQL"/>
