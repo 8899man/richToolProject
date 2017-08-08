@@ -8,9 +8,9 @@ import per.posse.tool.ws.response.ResponseBuilder;
 import per.posse.tool.ws.xml.DomainAttribute;
 import per.posse.tool.ws.xml.ExternalOperateEntityRequest;
 import per.posse.tool.ws.xml.ExternalOperateEntityResponse;
-import pers.posse.tool.ToolException;
-import pers.posse.tool.service.IToolUserService;
-import pers.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.ToolException;
+import per.posse.tool.service.IToolUserService;
+import per.posse.tool.service.dto.ToolUserDto;
 
 import java.util.concurrent.Semaphore;
 

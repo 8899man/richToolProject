@@ -11,6 +11,8 @@
     <packaging>pom</packaging>
     <properties>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <quartz.version>2.2.0</quartz.version>
+        <spring-version>4.3.7.RELEASE</spring-version>
     </properties>
 
     <modules>
@@ -18,7 +20,21 @@
         <module>business</module>
         <module>base-exception</module>
     </modules>
-         <build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

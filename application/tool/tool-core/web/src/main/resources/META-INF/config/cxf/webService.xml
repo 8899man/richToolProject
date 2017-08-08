@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
 
     <bean id="externalOperateEntityServiceImpl" class="per.posse.tool.ws.impl.ExternalOperateEntityServiceImpl" />
-    <bean id="encodingLoggingInInterceptor" class="pers.posse.tool.interceptor.EncodingLoggingInInterceptor" />
+    <bean id="encodingLoggingInInterceptor" class="per.posse.tool.interceptor.EncodingLoggingInInterceptor" />
     <bean id="outLoggingInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 
     <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">

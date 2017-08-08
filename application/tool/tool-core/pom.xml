@@ -43,7 +43,7 @@
         <dubbo.version>2.5.3</dubbo.version>
         <zookeeper.version>3.4.6</zookeeper.version>
         <zkclient.version>0.7</zkclient.version>
-        <quartz.version>1.8.6</quartz.version>
+        <quartz.version>2.2.0</quartz.version>
         <jetty.version>7.6.2.v20120308</jetty.version>
         <tomcat.version>2.1</tomcat.version>
         <postgresql.version>42.1.1</postgresql.version>
