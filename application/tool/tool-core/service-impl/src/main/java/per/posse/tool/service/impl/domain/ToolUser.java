@@ -20,7 +20,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = ToolUserRepositoryJPA.UPDATE_TOOL_USER, query = "update ToolUser t set "
             + "t.name = :name, t.age = :age, t.gender = :gender, t.idNum = :idNum, t.address = :address, t.mobile = :mobile,"
-            + "t.apiName = :apiName, t.apiPassword = :apiPassword where t.id = :id")
+            + "t.loginEmail = :loginEmail, t.loginPassword = :loginPassword, "
+            + "t.apiName = :apiName, t.apiPassword = :apiPassword "
+            + "where t.id = :id")
 })
 public class ToolUser {
 
@@ -41,23 +43,29 @@ public class ToolUser {
     @Column(length = 18)
     private String idNum;
 
-    @Column
+    @Column(length = 255)
     private String address;
 
-    @Column
+    @Column(length = 11)
     private String mobile;
 
-    @Column(name = "api_name")
+    @Column(length = 32)
+    private String loginEmail;
+
+    @Column(length = 32)
+    private String loginPassword;
+
+    @Column(name = "api_name", length = 32)
     private String apiName;
 
-    @Column(name = "api_password")
+    @Column(name = "api_password", length = 32)
     private String apiPassword;
 
     public ToolUser() {
     }
 
     public ToolUser(Long id, String name, Integer age, Gender gender, String idNum, String address, String mobile,
-            String apiName, String apiPassword) {
+            String loginEmail, String loginPassword, String apiName, String apiPassword) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -65,6 +73,8 @@ public class ToolUser {
         this.idNum = idNum;
         this.address = address;
         this.mobile = mobile;
+        this.loginEmail = loginEmail;
+        this.loginPassword = loginPassword;
         this.apiName = apiName;
         this.apiPassword = apiPassword;
     }
@@ -119,6 +129,22 @@ public class ToolUser {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getLoginEmail() {
+        return loginEmail;
+    }
+
+    public void setLoginEmail(String loginEmail) {
+        this.loginEmail = loginEmail;
+    }
+
+    public String getLoginPassword() {
+        return loginPassword;
+    }
+
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
     }
 
     public String getApiName() {
