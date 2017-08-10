@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd" >
+
+    <context:component-scan base-package="per.posse.tool.controller"></context:component-scan>
+
+    <mvc:annotation-driven />
+
+    <!-- org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler,  default  -->
+    <mvc:default-servlet-handler/>
+
+    <mvc:resources mapping="/images/**" location="http://location:8888/images/" />
+
+    <!-- 静态资源访问，告诉中央控制器，这样的请求不用拦截，直接访问，不用处理-->
+    <mvc:resources location="/img/" mapping="/img/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+
+
+    <!-- 文件上传解析器 -->
+    <bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+    <bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="10"></property>
+        <property name="prefix" value="/"></property>
+        <property name="contentType" value="text/html"></property>
+    </bean>
+</beans>

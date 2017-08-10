@@ -21,6 +21,10 @@ public class ToolUserDto {
 
     private String mobile;
 
+    private String loginEmail;
+
+    private String loginPassword;
+
     private String apiName;
 
     private String apiPassword;
@@ -79,6 +83,22 @@ public class ToolUserDto {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getLoginEmail() {
+        return loginEmail;
+    }
+
+    public void setLoginEmail(String loginEmail) {
+        this.loginEmail = loginEmail;
+    }
+
+    public String getLoginPassword() {
+        return loginPassword;
+    }
+
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
     }
 
     public String getApiName() {

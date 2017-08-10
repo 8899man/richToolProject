@@ -12,6 +12,7 @@
 
     <import resource="classpath*:META-INF/config/cxf/webService.xml" />
     <import resource="classpath*:META-INF/config/spring/applicationContext_quartz.xml" />
+    <import resource="classpath*:META-INF/config/spring/applicationContext_redis.xml" />
 
     <context:property-placeholder location="classpath*:META-INF/application.properties"/>
     <context:component-scan base-package="per.posse.tool.service.impl" />

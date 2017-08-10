@@ -69,10 +69,9 @@ public class HibernateSessionInterceptor implements Interceptor {
         return null;
     }
 
-    @Override
-    public int[] findDirty(Object o, Serializable serializable, Object[] objects, Object[] objects1,
-            String[] strings, Type[] types) {
-        return new int[0];
+    @Override public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
+            String[] propertyNames, Type[] types) {
+        return null;
     }
 
     @Override
