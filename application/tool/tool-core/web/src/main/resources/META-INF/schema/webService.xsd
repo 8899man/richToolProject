@@ -121,6 +121,8 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+            <xs:element name="logout" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+            <xs:element name="enableConcurrentLogin" type="xs:boolean" maxOccurs="1" minOccurs="0" />
         </xs:sequence>
     </xs:complexType>
 

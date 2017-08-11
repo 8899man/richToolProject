@@ -31,12 +31,12 @@
 
     <bean id="redisSessionConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.password}" p:timeout="${redis.timeOut}">
+          p:host-name="${redis.session.host}" p:port="${redis.session.port}" p:password="${redis.session.password}" p:timeout="${redis.timeOut}">
         <constructor-arg index="0" ref="jedisPoolConfig"/>
     </bean>
 
     <!-- redis template for cache, <String, String> -->
-    <bean id="redisSessionStringTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+    <bean id="redisStringTemplate" class="org.springframework.data.redis.core.RedisTemplate"
           p:connection-factory-ref="redisStringConnectionFactory">
         <property name="keySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
@@ -48,7 +48,7 @@
 
     <bean id="redisStringConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:host-name="${redis.host}" p:port="${redis.port}" p:timeout="${redis.timeOut}">
+          p:host-name="${redis.string.host}" p:port="${redis.string.port}" p:password="${redis.session.password}" p:timeout="${redis.timeOut}">
         <constructor-arg index="0" ref="jedisPoolConfig"/>
     </bean>
 </beans>

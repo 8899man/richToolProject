@@ -65,11 +65,13 @@ public class HibernateSessionInterceptor implements Interceptor {
 
     }
 
-    @Override public Boolean isTransient(Object o) {
+    @Override
+    public Boolean isTransient(Object o) {
         return null;
     }
 
-    @Override public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
+    @Override
+    public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
             String[] propertyNames, Type[] types) {
         return null;
     }

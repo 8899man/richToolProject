@@ -21,7 +21,8 @@ import javax.persistence.Table;
     @NamedQuery(name = ToolUserRepositoryJPA.UPDATE_TOOL_USER, query = "update ToolUser t set "
             + "t.name = :name, t.age = :age, t.gender = :gender, t.idNum = :idNum, t.address = :address, t.mobile = :mobile,"
             + "t.loginEmail = :loginEmail, t.loginPassword = :loginPassword, "
-            + "t.apiName = :apiName, t.apiPassword = :apiPassword "
+            + "t.apiName = :apiName, t.apiPassword = :apiPassword, "
+            + "t.logout = :logout, t.enableConcurrentLogin = :enableConcurrentLogin "
             + "where t.id = :id")
 })
 public class ToolUser {
@@ -61,11 +62,17 @@ public class ToolUser {
     @Column(name = "api_password", length = 32)
     private String apiPassword;
 
+    @Column(name = "logout")
+    private Boolean logout = Boolean.FALSE;
+
+    @Column(name = "enable_concurrent_login")
+    private Boolean enableConcurrentLogin = Boolean.FALSE;
+
     public ToolUser() {
     }
 
     public ToolUser(Long id, String name, Integer age, Gender gender, String idNum, String address, String mobile,
-            String loginEmail, String loginPassword, String apiName, String apiPassword) {
+            String loginEmail, String loginPassword, String apiName, String apiPassword, Boolean logout, Boolean enableConcurrentLogin) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -77,6 +84,8 @@ public class ToolUser {
         this.loginPassword = loginPassword;
         this.apiName = apiName;
         this.apiPassword = apiPassword;
+        this.logout = logout;
+        this.enableConcurrentLogin = enableConcurrentLogin;
     }
 
     public Long getId() {
@@ -161,5 +170,21 @@ public class ToolUser {
 
     public void setApiPassword(String apiPassword) {
         this.apiPassword = apiPassword;
+    }
+
+    public Boolean getLogout() {
+        return logout;
+    }
+
+    public void setLogout(Boolean logout) {
+        this.logout = logout;
+    }
+
+    public Boolean getEnableConcurrentLogin() {
+        return enableConcurrentLogin;
+    }
+
+    public void setEnableConcurrentLogin(Boolean enableConcurrentLogin) {
+        this.enableConcurrentLogin = enableConcurrentLogin;
     }
 }
