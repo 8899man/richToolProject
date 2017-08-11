@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import per.posse.tool.ws.ExternalException;
 import per.posse.tool.ws.xml.DomainAttribute;
 import per.posse.tool.service.IToolUserService;
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 import per.posse.tool.service.persistence.IToolUserRepository;
 
 /**
@@ -21,17 +21,32 @@ public class ToolUserService implements IToolUserService {
 
     @Override
     @Transactional
-    public ToolUserDto authUser(String apiName, String apiPassword) throws ExternalException {
+    public ToolUserDto authApiUser(String apiName, String apiPassword) throws ExternalException {
         if (StringUtils.isBlank(apiName) || StringUtils.isBlank(apiPassword)) {
             throw new ExternalException("auth info missing.");
         }
 
-        ToolUserDto userDto = toolUserRepository.findUserByUserNameAndPassword(apiName, apiPassword);
+        ToolUserDto userDto = toolUserRepository.findUserByApiUserNameAndPassword(apiName, apiPassword);
         if (userDto == null) {
             throw new ExternalException("user not exists.");
         }
         return userDto;
     }
+
+    @Override
+    @Transactional
+    public ToolUserDto authLoginUser(String loginEmail, String loginPassword) throws ExternalException {
+        if (StringUtils.isBlank(loginEmail) || StringUtils.isBlank(loginPassword)) {
+            throw new ExternalException("auth info missing.");
+        }
+
+        ToolUserDto userDto = toolUserRepository.findUserByLoginUserNameAndPassword(loginEmail, loginPassword);
+        if (userDto == null) {
+            throw new ExternalException("user not exists.");
+        }
+        return userDto;
+    }
+
 
     @Override
     @Transactional

@@ -10,7 +10,7 @@ import per.posse.tool.ws.xml.ExternalOperateEntityRequest;
 import per.posse.tool.ws.xml.ExternalOperateEntityResponse;
 import per.posse.tool.ToolException;
 import per.posse.tool.service.IToolUserService;
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 
 import java.util.concurrent.Semaphore;
 
@@ -31,7 +31,7 @@ public class ExternalOperateEntityServiceImpl implements ExternalOperateEntitySe
 
         ToolUserDto toolUserDto;
         try {
-            toolUserDto = userService.authUser(request.getApiName(), request.getApiPassword());
+            toolUserDto = userService.authApiUser(request.getApiName(), request.getApiPassword());
         } catch (ToolException te) {
             ResponseBuilder.addResult(response, te.getRawMessage());
             return response;

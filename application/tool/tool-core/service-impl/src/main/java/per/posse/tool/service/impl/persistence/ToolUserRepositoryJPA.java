@@ -3,7 +3,7 @@ package per.posse.tool.service.impl.persistence;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 import per.posse.tool.service.impl.domain.ToolUser;
 import per.posse.tool.service.impl.parser.ToolUserDtoParser;
 import per.posse.tool.service.persistence.IToolUserRepository;
@@ -28,7 +28,19 @@ public class ToolUserRepositoryJPA implements IToolUserRepository {
     private EntityManager em;
 
     @Override
-    public ToolUserDto findUserByUserNameAndPassword(String apiName, String apiPassword) {
+    public ToolUserDto findUserByLoginUserNameAndPassword(String loginEmail, String loginPassword) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<ToolUser> query = builder.createQuery(ToolUser.class);
+
+        Root<ToolUser> root = query.from(ToolUser.class);
+        query.where(builder.and(builder.equal(root.get("loginEmail"), loginEmail)),
+                builder.equal(root.get("loginPassword"), loginPassword));
+        List<ToolUser> toolUsers = em.createQuery(query).getResultList();
+        return CollectionUtils.isEmpty(toolUsers) ? null : ToolUserDtoParser.fromDomain(toolUsers.get(0));
+    }
+
+    @Override
+    public ToolUserDto findUserByApiUserNameAndPassword(String apiName, String apiPassword) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ToolUser> query = builder.createQuery(ToolUser.class);
 
@@ -48,7 +60,8 @@ public class ToolUserRepositoryJPA implements IToolUserRepository {
     public Long createUser(ToolUserDto toolUserDto) {
         ToolUser toolUser = new ToolUser(null, toolUserDto.getName(), toolUserDto.getAge(), toolUserDto.getGender(),
             toolUserDto.getIdNum(), toolUserDto.getAddress(), toolUserDto.getMobile(), toolUserDto.getLoginEmail(),
-                toolUserDto.getLoginPassword(), toolUserDto.getApiName(), toolUserDto.getApiPassword());
+            toolUserDto.getLoginPassword(), toolUserDto.getApiName(), toolUserDto.getApiPassword(),
+            toolUserDto.getLogout(), toolUserDto.getEnableConcurrentLogin());
         em.persist(toolUser);
         return toolUser.getId();
     }
@@ -66,6 +79,8 @@ public class ToolUserRepositoryJPA implements IToolUserRepository {
         query.setParameter("loginPassword", toolUserDto.getLoginPassword());
         query.setParameter("apiName", toolUserDto.getApiName());
         query.setParameter("apiPassword", toolUserDto.getApiPassword());
+        query.setParameter("logout", toolUserDto.getLogout());
+        query.setParameter("enableConcurrentLogin", toolUserDto.getEnableConcurrentLogin());
         query.setParameter("id", toolUserDto.getId());
         query.executeUpdate();
     }
@@ -80,15 +95,16 @@ public class ToolUserRepositoryJPA implements IToolUserRepository {
             return;
         }
         user.setName(StringUtils.isBlank(userDto.getName()) ? null : userDto.getName());
-        user.setAge(userDto.getAge() == null ? null : userDto.getAge());
-        user.setGender(userDto.getGender() == null ? null : userDto.getGender());
-        user.setMobile(StringUtils.isBlank(userDto.getMobile()) ? null : userDto.getMobile());
-        user.setAddress(StringUtils.isBlank(userDto.getAddress()) ? null : userDto.getAddress());
-        user.setIdNum(StringUtils.isBlank(userDto.getIdNum()) ? null : userDto.getIdNum());
-        user.setLoginEmail(StringUtils.isBlank(userDto.getLoginEmail()) ? null : userDto.getLoginEmail());
-        user.setLoginPassword(StringUtils.isBlank(userDto.getLoginPassword()) ? null : userDto.getLoginPassword());
-        user.setApiName(StringUtils.isBlank(userDto.getApiName()) ? null : userDto.getApiName());
-        user.setApiPassword(StringUtils.isBlank(userDto.getApiPassword()) ? null : userDto.getApiPassword());
+        user.setAge(userDto.getAge() == null ? user.getAge() : userDto.getAge());
+        user.setGender(userDto.getGender() == null ? user.getGender() : userDto.getGender());
+        user.setMobile(StringUtils.isBlank(userDto.getMobile()) ? user.getMobile() : userDto.getMobile());
+        user.setAddress(StringUtils.isBlank(userDto.getAddress()) ? user.getAddress() : userDto.getAddress());
+        user.setIdNum(StringUtils.isBlank(userDto.getIdNum()) ? user.getIdNum() : userDto.getIdNum());
+        user.setLoginEmail(StringUtils.isBlank(userDto.getLoginEmail()) ? user.getLoginEmail() : userDto.getLoginEmail());
+        user.setLoginPassword(StringUtils.isBlank(userDto.getLoginPassword()) ? user.getLoginPassword() : userDto.getLoginPassword());
+        user.setApiName(StringUtils.isBlank(userDto.getApiName()) ? user.getApiName() : userDto.getApiName());
+        user.setApiPassword(StringUtils.isBlank(userDto.getApiPassword()) ? user.getApiPassword() : userDto.getApiPassword());
+        user.setLogout(userDto.getLogout() == null ? user.getLogout() : userDto.getLogout());
     }
 
     @Override

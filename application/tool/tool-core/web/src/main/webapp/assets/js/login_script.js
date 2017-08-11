@@ -44,10 +44,10 @@ $(document).ready(function(){
             data : $("#login").serialize(),
             dataType : "json",
             success:function(data){
-                alert("success")
+                alert(data.msg)
             },
             error : function() {
-                alert("error");
+                alert("test error");
             }
         });
     })

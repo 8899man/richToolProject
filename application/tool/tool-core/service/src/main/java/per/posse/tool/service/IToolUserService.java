@@ -1,6 +1,6 @@
 package per.posse.tool.service;
 
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 import per.posse.tool.ws.xml.DomainAttribute;
 import per.posse.tool.ws.ExternalException;
 
@@ -8,7 +8,9 @@ import per.posse.tool.ws.ExternalException;
  * Created by posse on 17-7-20.
  */
 public interface IToolUserService {
-    ToolUserDto authUser(String userName, String password) throws ExternalException;
+    ToolUserDto authApiUser(String userName, String password) throws ExternalException;
+
+    ToolUserDto authLoginUser(String loginEmail, String loginPassword) throws ExternalException;
 
     void createUser(DomainAttribute attribute);
 

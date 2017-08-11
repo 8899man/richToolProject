@@ -1,13 +1,15 @@
 package per.posse.tool.service.persistence;
 
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 
 /**
  * Created by posse on 17-7-20.
  */
 public interface IToolUserRepository {
 
-    ToolUserDto findUserByUserNameAndPassword(String apiName, String apiPassword);
+    ToolUserDto findUserByApiUserNameAndPassword(String apiName, String apiPassword);
+
+    ToolUserDto findUserByLoginUserNameAndPassword(String loginEmail, String loginPassword);
 
     ToolUserDto findUserDto(Long id);
 

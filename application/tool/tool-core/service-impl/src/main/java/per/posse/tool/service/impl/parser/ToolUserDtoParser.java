@@ -1,7 +1,7 @@
 package per.posse.tool.service.impl.parser;
 
 import per.posse.tool.service.impl.domain.ToolUser;
-import per.posse.tool.service.dto.ToolUserDto;
+import per.posse.tool.dto.ToolUserDto;
 
 /**
  * Created by posse on 17-7-31.

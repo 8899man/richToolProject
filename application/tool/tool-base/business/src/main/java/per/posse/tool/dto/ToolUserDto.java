@@ -1,4 +1,4 @@
-package per.posse.tool.service.dto;
+package per.posse.tool.dto;
 
 import per.posse.tool.enums.domain.Gender;
 
@@ -28,6 +28,11 @@ public class ToolUserDto {
     private String apiName;
 
     private String apiPassword;
+
+    private Boolean logout = Boolean.FALSE;
+
+    private Boolean enableConcurrentLogin = Boolean.FALSE;
+
 
     public Long getId() {
         return id;
@@ -115,5 +120,21 @@ public class ToolUserDto {
 
     public void setApiPassword(String apiPassword) {
         this.apiPassword = apiPassword;
+    }
+
+    public Boolean getLogout() {
+        return logout;
+    }
+
+    public void setLogout(Boolean logout) {
+        this.logout = logout;
+    }
+
+    public Boolean getEnableConcurrentLogin() {
+        return enableConcurrentLogin;
+    }
+
+    public void setEnableConcurrentLogin(Boolean enableConcurrentLogin) {
+        this.enableConcurrentLogin = enableConcurrentLogin;
     }
 }
