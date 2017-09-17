@@ -23,5 +23,6 @@ hs_err_pid*
 .idea/
 *.iml
 application/tool/tool-core/web/target/
-
+ignore.txt
+*.DS_Store
 target
