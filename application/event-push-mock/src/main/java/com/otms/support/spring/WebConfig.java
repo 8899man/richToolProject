@@ -1,13 +1,8 @@
 package com.otms.support.spring;
 
-import java.util.concurrent.TimeUnit;
-import javax.servlet.MultipartConfigElement;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import com.otms.support.spring.filter.AdminFilter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,5 +18,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
+    }
+
+    @Bean
+    public FilterRegistrationBean adminFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean(new AdminFilter());
+        registration.addUrlPatterns("/ws/*");
+        return registration;
     }
 }

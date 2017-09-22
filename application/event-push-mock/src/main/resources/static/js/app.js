@@ -186,3 +186,27 @@ mainApp.service("mineGrid", function ($http, $parse) {
         });
     };
 });
+mainApp.directive("mineDate", function () {
+    return {
+        restrict: 'E',
+        require: 'ngModel',
+        template: "<div class='input-group date' style='float: left'>" +
+        "<input style='width: 140px;' type='text'class='form-control input-sm' />" +
+        "<span class='input-group-addon' style='cursor:pointer;'><span class='glyphicon glyphicon-calendar'></span></span></div>",
+        link: function (scope, element, attrs, ngModel) {
+            var dateText = $(element).children("input");
+            $(dateText).datetimepicker({format: 'Y-m-d H:i:s'});
+            $(dateText).change(function () {
+                ngModel.$setViewValue($(this).val());
+                console.log($(this).val());
+            });
+            ngModel.$render = function () {
+                $(dateText).val(ngModel.$viewValue);
+            }
+            $(element).find("span[class='input-group-addon']").click(function(){
+                $(dateText).trigger("focus");
+            });
+        },
+        replace: true
+    }
+});

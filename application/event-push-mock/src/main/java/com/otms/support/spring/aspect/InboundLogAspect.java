@@ -3,6 +3,7 @@ package com.otms.support.spring.aspect;
 import com.otms.support.kernel.service.InboundService;
 import com.otms.support.spring.annotation.InboundLog;
 import com.otms.support.supplier.utils.WebUtil;
+import java.nio.charset.Charset;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -12,6 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -52,14 +54,7 @@ public class InboundLogAspect {
     private String getPayload(HttpServletRequest request) {
         BufferedReader reader = null;
         try {
-            StringBuilder sb = new StringBuilder();
-            reader = request.getReader();
-            char[] buff = new char[1024];
-            int len;
-            while ((len = reader.read(buff)) != -1) {
-                sb.append(buff, 0, len);
-            }
-            return sb.toString();
+            return StreamUtils.copyToString(request.getInputStream(), Charset.forName("UTF-8"));
         } catch (Exception e) {
             LOGGER.error("Get request content error", e);
         } finally {

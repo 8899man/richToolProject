@@ -4,24 +4,33 @@
     <div class="mine-content">
         <div class="mine-query">
             <span class="mine-query-group">
-                <label class="mine-query-lable">请求时间</label>
+                <label class="mine-query-lable">推送类型</label>
                 <span class="mine-query-span">
-                    <div class='input-group date' style="float: left">
-                        <input id='createdOnBegin' style="width: 140px;" name="requestTimeStart" type='text'
-                               class="form-control input-sm" ng-model="inboundQuery.createdOnBegin"
-                               value="{{userQuery.createdAt * 1000 | date:'yy-MM-dd HH:mm:ss'}}"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+                     <select class="form-control input-sm" ng-model="inboundQuery.apiSource" ng-init="inboundQuery.apiSource='0'">
+                         <option value="0">全部</option>
+                         <option value="1">订单事件</option>
+                         <option value="2">运输单事件</option>
+                         <option value="3">账单事件</option>
+                         <option value="4">确认货差事件</option>
+                     </select>
+                </span>
+            </span>
+            <span class="mine-query-group">
+                <label class="mine-query-lable">推送内容</label>
+                <span class="mine-query-span">
+                   <input type="text" class="form-control input-sm" ng-model="inboundQuery.payload"/>
+                </span>
+            </span>
+            <span class="mine-query-group">
+                <label class="mine-query-lable">推送时间</label>
+                <span class="mine-query-span">
+                     <mine-date ng-model="inboundQuery.createdOnBegin"></mine-date>
                 </span>
             </span>
             <span class="mine-query-group">
                 <label class="mine-query-lable">至</label>
                 <span class="mine-query-span">
-                    <div class='input-group date' style="float: left">
-                        <input id='createdOnEnd' style="width: 140px;" name="requestTimeStart" type='text'
-                               class="form-control input-sm" ng-model="inboundQuery.createdOnEnd"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+                    <mine-date ng-model="inboundQuery.createdOnEnd"></mine-date>
                 </span>
             </span>
             &nbsp;&nbsp;<button class="btn btn-sm btn-primary" type="button" ng-click="query()">查询</button>

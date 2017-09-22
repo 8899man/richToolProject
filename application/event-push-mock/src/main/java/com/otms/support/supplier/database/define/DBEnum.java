@@ -7,4 +7,5 @@ import java.io.Serializable;
  */
 public interface DBEnum extends Serializable {
     Integer getConstant();
+    String getMessage();
 }

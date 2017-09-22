@@ -1,7 +1,5 @@
 mainApp.controller("eventOrderCtl",function($scope, mineGrid){
     $scope.rootUrl = rootUrl();
-    $("#eventTimeBegin").datetimepicker({format: 'Y-m-d H:i:s'});
-    $("#eventTimeEnd").datetimepicker({format: 'Y-m-d H:i:s'});
     $scope.orderQuery = {};
     $scope.orderQuery.eventTimeBegin = today();
     mineGrid.gridPageInit("gridOptions", $scope, {
@@ -38,10 +36,8 @@ mainApp.controller("eventOrderCtl",function($scope, mineGrid){
 });
 mainApp.controller("eventBillingCtl",function($scope, mineGrid){
     $scope.rootUrl = rootUrl();
-    $("#createdOnBegin").datetimepicker({format: 'Y-m-d H:i:s'});
     $scope.billingQuery = {};
     $scope.billingQuery.createdOnBegin = today();
-    $("#createdOnEnd").datetimepicker({format: 'Y-m-d H:i:s'});
     mineGrid.gridPageInit("gridOptions", $scope, {
             data: 'myData',
             multiSelect: false,
@@ -66,8 +62,6 @@ mainApp.controller("eventBillingCtl",function($scope, mineGrid){
 });
 mainApp.controller("eventJobSheetCtl",function($scope, mineGrid){
     $scope.rootUrl = rootUrl();
-    $("#eventTimeBegin").datetimepicker({format: 'Y-m-d H:i:s'});
-    $("#eventTimeEnd").datetimepicker({format: 'Y-m-d H:i:s'});
     $scope.jobSheetQuery = {};
     $scope.jobSheetQuery.eventTimeBegin = today();
     mineGrid.gridPageInit("gridOptions", $scope, {
@@ -99,9 +93,6 @@ mainApp.controller("eventJobSheetCtl",function($scope, mineGrid){
 
 mainApp.controller("eventInboundCtl",function($scope, mineGrid){
     $scope.rootUrl = rootUrl();
-    $("#createdOnBegin").datetimepicker({format: 'Y-m-d H:i:s'});
-    $("#createdOnEnd").datetimepicker({format: 'Y-m-d H:i:s'});
-
     $scope.inboundQuery = {};
     $scope.inboundQuery.createdOnBegin = today();
 
@@ -114,8 +105,12 @@ mainApp.controller("eventInboundCtl",function($scope, mineGrid){
             requestMethod: "POST",
             requestUrl: fullPath("view/inbound/events"),
             columnDefs: [
-                {field: 'createdOn', displayName: '请求时间', width:"150"},
-                {field: 'payload', displayName: '内容'}
+                {field: 'apiSource', displayName: '推送类型', width:"120", cellTemplate: "<span class='table-row-span'>{{row.entity.apiSourceMessage}}</span>"},
+                {field: 'createdOn', displayName: '推送时间', width:"140"},
+                {field: 'remoteIp', displayName: 'IP Adress', width:"150"},
+                {field: 'url', displayName: '推送地址', width:"300"},
+                {field: 'method', displayName: '请求方式', width:"100"},
+                {field: 'payload', displayName: '推送内容'}
             ]
         });
     $scope.gridPageQueryCallback = function (data) {

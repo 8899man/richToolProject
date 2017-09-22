@@ -19,6 +19,7 @@ import com.otms.support.kernel.repository.InBoundRepo;
 import com.otms.support.kernel.repository.JobSheetEventRepo;
 import com.otms.support.kernel.repository.OrderEventRepo;
 import com.otms.support.spring.model.PageQuery;
+import com.otms.support.supplier.database.enums.APISource;
 import com.otms.support.supplier.model.PageResult;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,20 +199,23 @@ public class OtmsEventService {
     }
 
     public PageResult<InboundDto> inBoundList(PageQuery pageQuery, InboundDto query) {
-        Page<Inbound> eventPage = inBoundRepo
-                .findAll((Specification<Inbound>) (root, criteriaQuery, cb) -> {
-                    List<Predicate> list = new ArrayList<>();
-
-                    if (query.getCreatedOnBegin() != null) {
-                        list.add(cb.greaterThanOrEqualTo(root.get("createdOn").as(LocalDateTime.class),
-                                query.getCreatedOnBegin()));
-                    }
-                    if (query.getCreatedOnEnd() != null) {
-                        list.add(cb.lessThanOrEqualTo(root.get("createdOn").as(LocalDateTime.class),
-                                query.getCreatedOnEnd()));
-                    }
-                    return cb.and(list.toArray(new Predicate[0]));
-                }, pageQuery.sortPageDefault("id"));
+        Page<Inbound> eventPage = inBoundRepo.findAll((Specification<Inbound>) (root, criteriaQuery, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+            if (query.getApiSource() != null) {
+                list.add(cb.equal(root.get("apiSource").as(APISource.class), query.getApiSource()));
+            }
+            if (!StringUtils.isEmpty(query.getPayload())) {
+                list.add(cb.like(root.get("payload").as(String.class), "%" + query.getPayload() + "%"));
+            }
+            if (query.getCreatedOnBegin() != null) {
+                list.add(cb.greaterThanOrEqualTo(root.get("createdOn").as(LocalDateTime.class),
+                        query.getCreatedOnBegin()));
+            }
+            if (query.getCreatedOnEnd() != null) {
+                list.add(cb.lessThanOrEqualTo(root.get("createdOn").as(LocalDateTime.class), query.getCreatedOnEnd()));
+            }
+            return cb.and(list.toArray(new Predicate[0]));
+        }, pageQuery.sortPageDefault("id"));
 
         PageResult<InboundDto> pageResult = new PageResult<InboundDto>();
         pageResult.setTotal(eventPage.getTotalElements());

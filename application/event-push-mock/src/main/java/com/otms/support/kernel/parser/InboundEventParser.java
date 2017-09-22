@@ -22,6 +22,13 @@ public class InboundEventParser {
     }
 
     private static InboundDto toDto(Inbound inbound, InboundDto dto) {
+        dto.setId(inbound.getId());
+        dto.setPayload(inbound.getPayload());
+        dto.setApiSource(inbound.getApiSource());
+        dto.setDirection(inbound.getDirection());
+        dto.setMethod(inbound.getMethod());
+        dto.setRemoteIp(inbound.getRemoteIp());
+        dto.setUrl(inbound.getUrl());
         dto.setCreatedOn(inbound.getCreatedOn());
         dto.setPayload(inbound.getPayload());
         return dto;

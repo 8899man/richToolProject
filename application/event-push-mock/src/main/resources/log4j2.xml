@@ -24,16 +24,17 @@
         </File>
 
         <!-- 添加过滤器ThresholdFilter,可以有选择的输出某个级别以上的类别  onMatch="ACCEPT" onMismatch="DENY"意思是匹配就接受,否则直接拒绝  -->
-        <File name="ERROR" fileName="logs/error.log">
+        <File name="ERROR" fileName="logs/event_push_mock_error.log">
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="30MB"/>
         </File>
 
         <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
-        <RollingFile name="RollingFile" fileName="logs/web.log" filePattern="logs/$${date:yyyy-MM}/%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="RollingFile" fileName="logs/event_push_mock_web.log" filePattern="logs/$${date:yyyy-MM}/%d{yyyy-MM-dd}-%i.log.gz">
             <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
-            <SizeBasedTriggeringPolicy size="10MB"/>
+            <SizeBasedTriggeringPolicy size="30MB"/>
         </RollingFile>
     </appenders>
 
@@ -44,10 +45,9 @@
         </logger>
         <!--建立一个默认的root的logger -->
         <root level="INFO">
-            <!--<appender-ref ref="RollingFile"/>-->
             <appender-ref ref="Console"/>
             <appender-ref ref="ERROR"/>
-            <!--<appender-ref ref="log"/>-->
+            <appender-ref ref="RollingFile"/>
         </root>
     </loggers>
 </configuration>  

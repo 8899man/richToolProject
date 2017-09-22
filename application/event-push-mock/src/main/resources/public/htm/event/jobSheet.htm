@@ -20,22 +20,13 @@
             <span class="mine-query-group">
                 <label class="mine-query-lable">事件时间</label>
                 <span class="mine-query-span">
-                    <div class='input-group date' style="float: left">
-                        <input id='eventTimeBegin' style="width: 140px;" name="requestTimeStart" type='text'
-                               class="form-control input-sm" ng-model="jobSheetQuery.eventTimeBegin"
-                               value="{{userQuery.createdAt * 1000 | date:'yy-MM-dd HH:mm:ss'}}"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+                    <mine-date ng-model="jobSheetQuery.eventTimeBegin"></mine-date>
                 </span>
             </span>
             <span class="mine-query-group">
                 <label class="mine-query-lable">至</label>
                 <span class="mine-query-span">
-                    <div class='input-group date' style="float: left">
-                        <input id='eventTimeEnd' style="width: 140px;" name="requestTimeStart" type='text'
-                               class="form-control input-sm" ng-model="jobSheetQuery.eventTimeEnd"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    </div>
+                    <mine-date ng-model="jobSheetQuery.eventTimeEnd"></mine-date>
                 </span>
             </span>
             &nbsp;&nbsp;<button class="btn btn-sm btn-primary" type="button" ng-click="query()">查询</button>

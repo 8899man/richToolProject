@@ -37,7 +37,7 @@ div {
     display: block;
     width: inherit;
     background-color: #f3f3f3;
-    background: url("../images/bg6.png") repeat #f3f3f3;
+    background: url("../images/bg2.png") repeat #f3f3f3;
     border: inherit;
     content: "";
 }
@@ -331,4 +331,10 @@ div {
    padding-top:20px;
    background:white;
    border: 1px solid red;
+}
+
+.table-row-span{
+  line-height:30px;
+  display:block;
+  text-align:center;
 }
