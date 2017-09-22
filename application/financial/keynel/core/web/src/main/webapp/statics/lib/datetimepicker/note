@@ -1,0 +1,42 @@
+ //时间控件
+$(".date-widget").datetimepicker({
+
+    showOtherMonths: true,//显示别的月份
+    artView:3,//选完时间首先显示的视图,日期时间选择器打开之后首先显示的视图。Number, String类型  默认值：2, ‘month’
+
+    format: 'yyyy-mm-dd',//格式化时间
+
+    selectOtherMonths: false,//选择
+
+    maxView :5 ,//最高能展示的时间,Number, String类型  默认值：4, ‘decade’
+
+    startDate: '2014-01-01',//开始年份
+
+    weekStart: 3, //一周从哪一天开始，0（星期日）到6（星期六），默认从0开始 Integer类型
+
+    autoclose: true, //选择之后，自动关闭时间弹框 Boolean类型 默认值：false
+
+    minView: 2, //从日开始选择 分：0，  时：1 ，日：2，月：3 ，年：4 ， Number, String类型
+
+    //minuteStep :5,//此数值被当做步进值用于构建小时视图。就是最小的视图是每5分钟可选一次。是以分钟为单位的。默认值：5 Number类型
+
+    pickerPosition:bottom-lef,// 默认值：’bottom-right’  还支持 : ‘bottom-left’，’top-right’，’top-left’ String类型
+
+    todayBtn: true,//开启选择今天的按钮,Boolean, “linked”类型 默认值：false’,如果此值为true 或 “linked”，则在日期时间选择器组件的底部显示一个 “Today” 按钮用以选择当前日期。
+
+    //如果是true的话，”Today” 按钮仅仅将视图转到当天的日期，如果是”linked”，当天日期将会被选中。
+
+    todayHighlight: true,//今天日期高亮显示 如果为true, 高亮当前日期。Boolean类型 ,默认值：false ,
+
+    keyboardNavigation: true,// 方向键改变日期，是否允许通过方向键改变日期。默认为false，Boolean类型
+
+    language: 'zh-CN', //语言选择中文  默认值：’en’ String类型
+
+    daysOfWeekDisabled: [0,4,6] ,// 一周的周几不能选，0（星期日）到6（星期六） ，可以有多个。String, Array类型
+
+    forceParse: true,//强制性设置日期格式，转换成format格式 ，就是你输入的可能不正规，但是它胡强制尽量解析成你规定的格式（format）默认为：true
+
+    initialDate: new Date(),// 初始化日期时间,在打开时默认选当时的时间，显示在View中。默认值：new Date()  Date or String类型
+
+    showMeridian:0 ,  显示上午或下午
+});

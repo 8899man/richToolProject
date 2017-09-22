@@ -1,0 +1,135 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+
+    <xs:element name="externalOperateEntityRequest" type="externalOperateEntityRequest" />
+    <xs:element name="externalOperateEntityResponse" type="externalOperateEntityResponse" />
+
+    <xs:complexType name="externalOperateEntityRequest">
+        <xs:sequence>
+            <xs:element name="operation" type="externalOperateEntityServiceOperation" minOccurs="1" maxOccurs="1" />
+            <xs:element name="attribute" type="externalOperateEntityServiceAttribute" maxOccurs="1" minOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="apiName" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="32" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="apiPassword" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="32" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="version" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="0.1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="externalOperateEntityServiceOperation">
+        <xs:sequence>
+            <xs:element name="domain" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="TOOL_USER" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="type" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CREATE" />
+                        <xs:enumeration value="RETRIEVE" />
+                        <xs:enumeration value="UPDATE" />
+                        <xs:enumeration value="DELETE" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="externalOperateEntityServiceAttribute">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" maxOccurs="1" minOccurs="0" />
+            <xs:element name="name" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="age" type="xs:integer" maxOccurs="1" minOccurs="0" />
+            <xs:element name="gender" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="MALE" />
+                        <xs:enumeration value="FEMALE"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="mobile" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="11"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="idNum" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="18" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="address" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="loginEmail" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="loginPassword" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="apiName" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="apiPassword" maxOccurs="1" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="logout" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+            <xs:element name="enableConcurrentLogin" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="externalOperateEntityResponse">
+        <xs:sequence>
+            <xs:element name="msg" type="xs:string" maxOccurs="1" minOccurs="1" />
+            <xs:element name="attribute" type="externalOperateEntityServiceAttribute" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>core-parent</artifactId>
+        <groupId>com.tsp.financial.core</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>core-web</artifactId>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tsp.financial.core</groupId>
+            <artifactId>core-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 添加tomcat插件-->
+    <build>
+        <finalName>web</finalName>
+        <plugins>
+            <!-- reference tomcat -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${tomcat.version}</version>
+                <configuration>
+                    <port>9090</port>
+                    <path>/</path>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <server>tomcat7</server>
+                </configuration>
+            </plugin>
+
+            <!-- reference jetty -->
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <contextHandlers>
+                        <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+                            <contextPath>/</contextPath>
+                            <resourceBase>${project.basedir}</resourceBase>
+                        </contextHandler>
+                    </contextHandlers>
+                    <stopKey/>
+                    <stopPort/>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <configuration>
+                    <outxml>true</outxml>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.springframework</groupId>
+                            <artifactId>spring-aspects</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <weaveDependencies>
+                        <weaveDependency>
+                            <groupId>com.tsp.financial</groupId>
+                            <artifactId>base-business</artifactId>
+                        </weaveDependency>
+                        <weaveDependency>
+                            <groupId>com.tsp.financial</groupId>
+                            <artifactId>service</artifactId>
+                        </weaveDependency>
+                    </weaveDependencies>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>基于bootstrap的datetimepicker插件</title>
+	<link href="/statics/lib/bootstrap3/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+	<link href="/statics/lib/datetimepicker/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
+
+	<script src="/statics/lib/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+	<script src="/statics/lib/bootstrap3/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/statics/lib/datetimepicker/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+	<script src="/statics/lib/datetimepicker/bootstrap/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+	<!--<script src="/statics/js/tool.js" type="text/javascript"></script>-->
+
+</head>
+<body>
+<div class="container">
+	<form action="" class="form-horizontal"  role="form">
+		<fieldset>
+			<legend>Test</legend>
+			<div class="form-group">
+				<label for="dtp_input1" class="col-md-2 control-label">DateTime Picking</label>
+				<div class="input-group date form_datetime col-md-5"   >
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input1" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input2" class="col-md-2 control-label">Date Picking</label>
+				<div class="input-group date form_date col-md-5" >
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input2" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input3" class="col-md-2 control-label">Time Picking</label>
+				<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input3" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input4" class="col-md-2 control-label">month Picking</label>
+				<div class="input-group date form_month col-md-5">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input4" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input5" class="col-md-2 control-label">month date Picking</label>
+				<div class="input-group date form_month_date col-md-5">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input5" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input6" class="col-md-2 control-label">year Picking</label>
+				<div class="input-group date form_year col-md-5">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input6" value="" /><br/>
+			</div>
+			<div class="form-group">
+				<label for="dtp_input7" class="col-md-2 control-label">time start</label>
+				<div class="input-group date form_date_start col-md-3">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input7" value="" />
+			</div>
+			<div class="form-group">
+				<label for="dtp_input8" class="col-md-2 control-label">time end</label>
+				<div class="input-group date form_date_end col-md-3">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input8" value="" />
+			</div>
+			<div class="form-group">
+				<label for="dtp_input10" class="col-md-2 control-label">time end</label>
+				<div class="input-group date form_date_end col-md-3" data-date="" data-date-format="yyyy-MM-dd HH:mm:ss" data-link-field="dtp_input2" data-link-format="yyyy-MM-dd HH:mm:ss">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input10" value="" />
+			</div>
+
+			<div>
+				<label for="dtp_input9" class="col-md-2 control-label">time full</label>
+				<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-MM-dd HH:mm:ss" data-link-field="dtp_input2" data-link-format="yyyy-MM-dd HH:mm:ss">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+				</div>
+				<input type="hidden" id="dtp_input9" value="" />
+			</div>
+		</fieldset>
+	</form>
+</div>
+	<script type="text/javascript">
+		$('.form_datetime').datetimepicker({
+			//精确到分的时间
+			format: 'yyyy-mm-dd - HH:ii p',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 0,
+			showMeridian: 1,
+			minuteStep : 1
+		});
+		$('.form_date').datetimepicker({
+			//年月日
+			format: 'yyyy-mm-dd',
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+		$('.form_time').datetimepicker({
+			//时间
+			format:"hh:ii",
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 1,
+			forceParse: 0,
+			minuteStep : 1
+		});
+		$('.form_month').datetimepicker({
+			//年月
+			format: 'yyyy-mm',
+			 weekStart: 1,
+			 autoclose: true,
+			 startView: 3,
+			 minView: 3,
+			 forceParse: false,
+			 language: 'zh-CN'
+		});
+		$('.form_month_date').datetimepicker({
+			//月日
+			format:"mm-dd",
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+		$('.form_year').datetimepicker({
+			format: 'yyyy-mm',
+			 weekStart: 1,
+			 autoclose: true,
+			 startView: 4,
+			 minView: 4,
+			 forceParse: false,
+			 language: 'zh-CN'
+
+		});
+
+		var newDate = new Date();
+		var t       = newDate.toJSON();
+		$('.form_date_start').datetimepicker({
+			//从今天开始
+			format: 'yyyy-mm-dd',
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			weekStart: 1,
+			startDate:new Date(t),
+		});
+		$('.form_date_end').datetimepicker({
+			//到今天结束
+			format: 'yyyy-mm-dd',
+			language:  'fr',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			weekEnd: 1,
+			endDate:new Date(t),
+		});
+
+		var newDate = new Date();
+		var t = newDate.toJSON();
+		$('.col-md-5').datetimepicker({
+			language: 'zh-CN',
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startDate: new Date(t),
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>Apple-like Login Form | Tutorialzine Demo</title>
+		<script type="text/javascript" src="/statics/lib/jquery/jquery-1.8.3.min.js"></script>
+        <link rel="stylesheet" href="/statics/css/login_styles.css" />
+		<script src="/statics/js/login_script.js"></script>
+    </head>
+    
+    <body>
+		<div id="formContainer">
+			<form id="login" th:action="@{/bb}" th:object="${user}" th:method="post">
+				<a href="#" id="flipToRecover" class="flipLink">Forgot?</a>
+				<input type="text" name="loginEmail" id="loginEmail" placeholder="email" value="0" th:field="*{name}" />
+				<input type="password" name="loginPassword" id="loginPassword" placeholder="password" value="0" th:f />
+				<input type="submit" name="submit" value="Login" />
+			</form>
+			<form id="recover" method="post">
+				<a href="#" id="flipToLogin" class="flipLink">Forgot?</a>
+				<input type="text" name="recoverEmail" id="recoverEmail" placeholder="email" />
+				<input type="submit" name="submit" value="Recover" />
+			</form>
+		</div>
+
+        <footer>
+	        <h2><i>Tutorial:</i> Apple-like Login Form With CSS 3D Transforms</h2>
+            <a class="tzine" href="index.html">Head on to <i>Tutorial<b> zine</b></i> to Login in.</a>
+        </footer>
+    </body>
+</html>
+
